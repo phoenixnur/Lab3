@@ -22,13 +22,13 @@ int main (void) {
 		int a;
 		printf("Please enter an integer number:\n");
 		scanf("%d", &a);
-		write(fd[1],&a,sizeof(a));
+		write(fd[1],&a,sizeof(int));
 	}
 
 	else if (pid >0) {
 		wait(NULL);
-		read(fd[0],&temp,sizeof(a));
-		prime = temp /2;
+		read(fd[0],&a,sizeof(int));
+		prime = a /2;
 	
 		for(int i=2; i<=prime; i++) {
 			if(prime % i == 0) {
@@ -37,10 +37,10 @@ int main (void) {
 			}
 		}
 		if (flag == 0) {
-			printf ("\n %a is a Prime Number\n");
+			printf ("%d is a Prime Number\n");
 		}
 		else {
-			printf (" %a is not a Prime Number\n");
+			printf ("%d is not a Prime Number\n");
 		}
 		return 0;
 	}	
