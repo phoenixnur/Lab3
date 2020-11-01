@@ -15,11 +15,11 @@ int main(void) {
 	char *pin = "4128\0";
 
 	printf("Writing PIN to pipe....\n");
-	write(pipefds[1], pin, 5));
+	write(pipefds[1], pin, 5);
 	printf("Done.\n\n");
 
 	printf("Reading  PIN from pipe....\n");
-	read(pipefds[0], buffer, 5));
+	read(pipefds[0], buffer, 5);
 	printf("Done.\n\n");
 
 	printf("PIN from pipe: %s\n", buffer);
