@@ -4,15 +4,15 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <signal.h>
-#inlcude <errno.h>
+#include <errno.h>
 
 int main (void) {
 	void sigint_handler(int sig);
-
+	int fd[2],temp,prime,flag = 0;
 	pid_t pid = fork();
 	pipe(fd);
-	int fd[2],temp,prime,flag = 0;
-
+	
+	
 	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
 		perror("signal");
 		exit(1);
@@ -20,7 +20,7 @@ int main (void) {
 
 	if(pid == 0) {
 		int a;
-		printf("Please enter an integer number:"\n);
+		printf("Please enter an integer number:\n");
 		scanf("%d", &a);
 		write(fd[1],&a,sizeof(a));
 	}
@@ -29,7 +29,7 @@ int main (void) {
 		wait(NULL);
 		read(fd[0],&temp,sizeof(a));
 		prime = temp /2;
-
+	
 		for(int i=2; i<=prime; i++) {
 			if(prime % i == 0) {
 				flag =1;
@@ -37,17 +37,18 @@ int main (void) {
 			}
 		}
 		if (flag == 0) {
-			printf ("\n %d is a Prime Number"\n);
+			printf ("\n %d is a Prime Number\n");
 		}
 		else {
-			printf (" %d is not a Prime Number"\n);
+			printf (" %d is not a Prime Number\n");
 		}
 		return 0;
-	}
+	}	
 	else {
 		printf("Error");
 		exit(1);
 	}
+}
 
 	void sigint_handler(int sig)
 	{
