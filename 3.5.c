@@ -11,7 +11,7 @@ int main (void)
 
 	void sigint_handler(int sig);
         
-	int prime, flag, temp, ppfds[2] =0;
+	int prime,flag,temp,ppfds[2] = 0;
 	pipe(ppfds);
         pid_t pid = fork();
 	
@@ -64,4 +64,3 @@ void sigint_handler(int sig)
 {
 	printf("Terminate!");
 }
-
