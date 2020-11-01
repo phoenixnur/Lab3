@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,36 +10,19 @@ int main(void) {
 	if(pipe(pipefds) == -1) {
 		perror("pipe");
 		exit(EXIT_FAILURE);
-}
+	}
 
-int nombor = 22;
+	int nombor = 22;
 
-printf("Writing a number to pipe....\n");
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+	printf("Writing a number to pipe....\n");
+	write(pipefds[1], &nombor, sizeof(nombor));
+	printf("Done.\n\n");
 
-int main(void) {
-	int pipefds[2];
-	int buffer;
+	printf("Reading  a number from pipe....\n");
+	read(pipefds[0], &buffer, sizeof(buffer));
+	printf("Done.\n\n");
 
-	if(pipe(pipefds) == -1) {
-		perror("pipe");
-		exit(EXIT_FAILURE);
-}
+	printf("Number from pipe: %d\n", buffer);
 
-int nombor = 22;
-
-printf("Writing a number to pipe....\n");
-write(pipefds[1], &nombor, sizeof(nombor));
-printf("Done.\n\n");
-
-printf("Reading  a number from pipe....\n");
-read(pipefds[0], &buffer, sizeof(buffer));
-printf("Done.\n\n");
-
-printf("Number from pipe: %d\n", buffer);
-
-return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
