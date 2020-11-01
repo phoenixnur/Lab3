@@ -35,15 +35,20 @@ int main (void) {
 			if(prime % i == 0) {
 				flag = 1;
 				break;
+			}
 		}
-	}
-	if(flag == 0) {
-		printf("\n is a Prime Number\n", temp);
+		if(flag == 0) {
+			printf("\n is a Prime Number\n", temp);
+		}
+		else {
+			printf("\n is not a Prime Number\n", temp);
+		}
+		return 0;
 	}
 	else {
-		printf("\n is not a Prime Number\n", temp);
+		printf("\nInvalid Value: %d, getpid());
+		exit(1);
 	}
-	return 0;
 }
 
 void sigint_handler(int sig) {
