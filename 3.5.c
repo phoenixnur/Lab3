@@ -7,18 +7,18 @@
 
 int main(void) {
 
-void sigint_handler(int sig);
-int s[50];
+	void sigint_handler(int sig);
 
-if(signal(SIGINT,  sigint_handler) ++ SIG_ERR) {
-	perror("signal");
-	exit(1);
+
+	if(signal(SIGINT,  sigint_handler) == SIG_ERR) {
+		perror("signal");
+		exit(1);
 	}
 
         int a=1;
         int isprime=0;
         int p[2];
-        pipe(p);
+       	int  pipe(p);
 
         int pid = fork();
         if(pid < 0)
@@ -26,7 +26,7 @@ if(signal(SIGINT,  sigint_handler) ++ SIG_ERR) {
         if(pid == 0)
         {
                 close(p[1]);
-                read(p[0],&a,sizeof(int));
+                fread(p[0],&a,sizeof(int));
                 isprime = 1;
                 for(int i=2;i*i<=a;i++)
                         if(a%i==0)
@@ -41,10 +41,10 @@ if(signal(SIGINT,  sigint_handler) ++ SIG_ERR) {
                 while(a!=0){
                         printf("Please enter an integer number:");
                         scanf("%d",&a);
-                        write(p[1],&a,sizeof(int));
+                        fwrite(p[1],&a,sizeof(int));
                 }
                 wait(0);
-                close(p[1]);
+               	pclose(p[1]);
 
         }
 
