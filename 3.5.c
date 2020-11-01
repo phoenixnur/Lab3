@@ -37,10 +37,10 @@ int main (void) {
 			}
 		}
 		if (flag == 0) {
-			printf ("%d is a Prime Number\n");
+			printf ("%a is a Prime Number\n");
 		}
 		else {
-			printf ("%d is not a Prime Number\n");
+			printf ("%a is not a Prime Number\n");
 		}
 		return 0;
 	}	
