@@ -2,41 +2,50 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <errno.h>
 
-int main()
-{
-        int a=1;
-        int isprime=0;
-        int p[2];
-        pipe(p);
+int main (void) {
 
-        int pid = fork();
-        if(pid < 0)
-                exit(1);
-        if(pid == 0)
-        {
-                close(p[1]);
-                read(p[0],&a,sizeof(int));
-                isprime = 1;
-                for(int i=2;i*i<=a;i++)
-                        if(a%i==0)
-                                isprime = 0;
-                if(isprime == 1)
-                        printf("%d is prime",a);
-                close(p[0]);
-        }
-        else
-        {
-                close(p[0]);
-                while(a!=0){
-                        printf("Please enter an integer:");
-                        scanf("%d",&a);
-                        write(p[1],&a,sizeof(int));
-                }
-                wait(0);
-                close(p[1]);
+	void sigint_handler(int sig);
+        
+	int prime, flag, temp, ppfds[2] =0;
+	pipe(p);
+        pid_t pid = fork();
+	
+	if(signal(SIGINT, sigint_handler) == SIG_ERR) {
+		perror("signal");
+		exit(1);
+	}
+        
+        if(pid == 0){
+		int num;
+		printf("Enter an integer number:\n");
+		scanf("%d",&num);
+		write(ppfds[1],&num,sizeof(num));
+	}
+	else if(pid >0) {
+		wait(NULL);
+		printf("This is a Parent Process!\n");
+		read(ppfds[0],&temp,sizeof(temp));
+		prime = temp / 2;
 
-        }
+		for(int i=2; i<=prime; i++) {
+			if(prime % i == 0) {
+				flag = 1;
+				break;
+		}
+	}
+	if(flag == 0) {
+		printf("\n is a Prime Number\n", temp);
+	}
+	else {
+		printf("\n is not a Prime Number\n", temp);
+	}
+	return 0;
+}
 
-        return 0;
+void sigint_handler(int sig) {
+	printf("Terminate!");
 }
