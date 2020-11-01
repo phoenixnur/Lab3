@@ -11,7 +11,7 @@ void getPIN(char pin[PIN_LENGTH + 1]) {
 	srand(getpid() + getpid());
 	pin[0] = 49 + rand() % 7;
 
-	for(int i = 1; i<PIN_LENGTH; i++)
+	for(int i = 1; i<PIN_LENGTH; i++){
 		pin[i] = 48 + rand() % 7;
 	}
 	pin[PIN_LENGTH] = '\0';
@@ -48,5 +48,5 @@ int main(void) {
 			printf("Parent received PIN '%s' from child. \n\n", buffer);
 			}
 		}
-		return EXIT_SUCCESS
+		return EXIT_SUCCESS;
 }
