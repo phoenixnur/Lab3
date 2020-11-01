@@ -1,10 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <errno.h>
+#include <signal.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 
-int main()
-{
+int main(void) {
+
+void sigint_handler(int sig);
+int s[50];
+
+if(signal(SIGINT,  sigint_handler) ++ SIG_ERR) {
+	perror("signal");
+	exit(1);
+	}
+
         int a=1;
         int isprime=0;
         int p[2];
@@ -29,7 +39,7 @@ int main()
         {
                 close(p[0]);
                 while(a!=0){
-                        printf("a=");
+                        printf("Please enter an integer number:");
                         scanf("%d",&a);
                         write(p[1],&a,sizeof(int));
                 }
