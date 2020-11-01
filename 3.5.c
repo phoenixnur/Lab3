@@ -11,7 +11,7 @@ int main (void) {
 	int fd[2],temp,prime,flag = 0;
 	pid_t pid = fork();
 	pipe(fd);
-	
+	int a;
 	
 	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
 		perror("signal");
