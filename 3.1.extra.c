@@ -19,7 +19,7 @@ int main(void)
 		perror("signal");
 		exit(1);
 	}
-	else if (signal(SIGSTP, sigstp_handler) == SIG_ERR) {
+	else if (signal(SIGSTOP, sigstp_handler) == SIG_ERR) {
 		perror("signal");
 		exit(1);
 	}
